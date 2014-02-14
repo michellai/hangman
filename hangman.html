@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test!</title>
+	<link rel="stylesheet" href="hang.css">
+	<script src="js/jquery-1.11.0.js"></script>
+	<script src="js/jquery-ui-1.10.4.custom.js"></script>
+	<script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+	<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.4.custom.css">
+	<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
+</head>
+<body>
+<div id="container" class="center">
+	<div id="board" >
+		<div id="man"></div>
+		<div id="spaces"></div>
+		<div id="letters"></div>
+	</div>	
+	<div id="dialog-youlose" title="Play Again?"></div>
+	<div id="dialog-youwin" title="Play Again?"></div>
+</div>
+<script type="text/javascript">
+	
+	var words = ["surprise", "fun", "time", "wicked"];
+	var imgPath = './img/hangLevel';
+	var hangExt = '.png';
+	var hangWin = './img/won.png';
+	var hangLimit = 6;
+	var hangLevel = 1;
+	var guessed = 0;
+
+	function chooseWord() {
+		// randomly select num from 0 to words arraylen-1
+		word_index = Math.floor(Math.random()*(words.length));
+		console.log(word_index);
+		return words[word_index];
+	}
+	function createSpaces() {
+		// based on length of word, create div. grab container div, then append div 
+		//e.g. $('#container').append('<div></div>')
+		chosenWord = chooseWord();
+		for (var cnt=0; cnt < chosenWord.length; cnt++) {
+			$('#spaces').append('<span class="letter-space center"></span>');
+		}
+		return chosenWord;
+	}
+	function setLetters(chosenWord) {
+		var alphabet = "abcdefghijklmnopqrstuvwxyz";
+		for (var cnt=0; cnt < alphabet.length; cnt++) {
+			thisLetter = alphabet[cnt];
+			$('#letters').append('<button id="button_'+thisLetter+'" class="guess" onclick="checkLetter(\''+ thisLetter+'\')">'+thisLetter+'</button>');
+		}
+	}
+	function checkLetter(guess) {
+		var occurences = 0;
+
+		for (var cnt=0; cnt < window.word.length; cnt++) {
+			if (window.word.charAt(cnt) == guess) {
+				$($('.letter-space')[cnt]).html('<p>'+guess+'</p>');
+				occurences++;
+			}
+		}
+		guessed += occurences;
+		//disable letter now
+		$($('#button_'+guess)).prop('disabled',true);
+		if (guessed == window.word.length) {
+			showWin();
+		} else if (occurences == 0) {
+			advanceHang();
+		}
+	}
+	function revealWord() {
+		for (var cnt=0; cnt < window.word.length; cnt++) {
+			$($('.letter-space')[cnt]).html('<p>'+window.word[cnt]+'</p>');
+		}
+	}
+	function advanceHang() {
+		$('#man').html('<span class="hang-part"><img src="'+imgPath+hangLevel.toString()+hangExt+'"/></span>');
+
+		if (hangLevel == hangLimit) {
+			revealWord();
+			$( "#dialog-youlose" ).dialog({
+		      resizable: false,
+		      height:140,
+		      modal: true,
+		      buttons: {
+		        "Yes!": function() {
+		          location.reload();
+		        },
+		        "Nope.": function() {
+		          $( this ).dialog( "close" );
+		        }
+		      }
+		    });
+		} else {
+			hangLevel++;
+		}
+	}
+	function showWin() {
+		//if number of guessed right elements == word length, you win!
+		$('#man').html('<span class="hang-part"><img src="'+hangWin+'"/></span>');
+		$( "#dialog-youwin" ).dialog({
+		      resizable: false,
+		      height:140,
+		      modal: true,
+		      buttons: {
+		        "Yes!": function() {
+		          location.reload();
+		        },
+		        "No thanks.": function() {
+		          $( this ).dialog( "close" );
+		        }
+		      }
+		    });
+	}
+	$(function() {
+		window.word = createSpaces();
+		var letters = setLetters(word);
+	});
+
+</script>
+</body>
+</html>

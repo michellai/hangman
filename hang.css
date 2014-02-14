@@ -1,0 +1,98 @@
+#container {
+	height:150px;
+}
+.center {
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+}
+#dialog-youlose, #dialog-youwin{
+	display:none;
+}
+
+.letter-space {
+	
+	display:inline-block;
+	vertical-align: top; /*goes well with inline-blocks*/
+	width: 50px;
+	height: 50px;
+	border-bottom: 2px;
+	border-color: black;
+	border-bottom-style: solid;
+	margin: 200px 5px 0px 0px;
+}
+.letter-space p {
+	display: table-cell;
+    vertical-align: middle;
+    padding: 15px 0px 0px 15px;
+    margin: auto 5px;
+	font-family: helvetica;
+	font-size: 28px;
+	
+}
+#board {
+	background-image: url('./img/hangman.jpeg');
+	position:fixed;
+	height:200px;
+	width:200px;
+	background-repeat:no-repeat;
+}
+#man {
+	position:relative;
+	float: left;
+	top:35px;
+	left:105px;
+	height:200px;
+}
+#spaces {
+	position:fixed;
+	margin: auto;
+}
+#letters {
+	position:fixed;
+	top:300px;
+	margin: auto;
+	width:310px;
+}
+#letters .guess {
+
+	-moz-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	background-color:#b8e356;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #83c41a;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 12px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #86ae47;
+}
+#letters .guess:hover {
+	background-color:#a5cc52;
+}
+#letters .guess:active {
+	position:relative;
+	top:1px;
+}
+#letters .guess:disabled {
+	
+	-webkit-box-shadow:inset 0px 1px 0px 0px #347300;
+	box-shadow:inset 0px 1px 0px 0px #347300;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #293b00), color-stop(1, #718a3d));
+	background:-moz-linear-gradient(top, #293b00 5%, #718a3d 100%);
+	background:-webkit-linear-gradient(top, #293b00 5%, #718a3d 100%);
+	background:-o-linear-gradient(top, #293b00 5%, #718a3d 100%);
+	background:-ms-linear-gradient(top, #293b00 5%, #718a3d 100%);
+	background:linear-gradient(to bottom, #293b00 5%, #718a3d 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#293b00', endColorstr='#718a3d',GradientType=0);
+	background-color:#293b00;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+}
