@@ -3,7 +3,7 @@ hangman
 
 Simple Hangman Game written with HTML, CSS, and a little Javascript.
 
-Deployed at http://games.michell.ai/hangman
+Deployed at http://michell.ai/games/hangman
 
 
 Improvements to make:
